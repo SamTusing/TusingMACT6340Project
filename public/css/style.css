@@ -16,10 +16,6 @@ html {
   box-sizing: inherit;
 }
 
-#testButton{
-  background-color: chartreuse;
-}
-
 html, body {
   height: 100%;
 }
@@ -31,4 +27,26 @@ body {
 
 main {
   flex: 1;
+}
+
+.splash-grid {
+  position: relative;        
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+  gap: 10px;
+  height: 100vh;            
+}
+
+
+.splash-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  z-index: 10; 
 }
