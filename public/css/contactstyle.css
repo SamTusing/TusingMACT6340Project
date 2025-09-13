@@ -1,0 +1,15 @@
+body {
+    background-color:black;
+}
+
+label {
+  color: #8cff00; /* your desired color */
+}
+
+#send-contact {
+  background-color: #8cff00; /* button background */
+  border-color: white;     /* button border */
+  color: black;              /* text color */
+  font-weight: bold;          /* optional */
+  transition: background-color 0.3s ease;
+}
