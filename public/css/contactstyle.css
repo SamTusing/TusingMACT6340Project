@@ -13,3 +13,11 @@ label {
   font-weight: bold;          /* optional */
   transition: background-color 0.3s ease;
 }
+
+#button {
+    background-color: #8cff00;
+    color: black;
+    border-radius: 12px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+}

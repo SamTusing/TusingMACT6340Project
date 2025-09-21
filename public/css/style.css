@@ -1,11 +1,20 @@
 body {
     background-color:white;
+
 }
 
-button {
-    background-color:chartreuse;
-    color: black;
+.header-spacer {
+  height: 120px; /* adjust to match your header's total height */
 }
+
+#button {
+    background-color: #8cff00;
+    color: black;
+    border-radius: 12px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+}
+
 
 html {
   box-sizing: border-box;
@@ -50,3 +59,21 @@ main {
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
   z-index: 10; 
 }
+
+/* Carousel arrow buttons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #8cff00;  
+    border: 4px solid black;
+    border-radius: 50%;   
+    border-color: black;     
+    padding: 10px;            
+}
+
+/* Optional: make the default transparent circle smaller */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px; 
+    height: 50px;
+}
+

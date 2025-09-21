@@ -1,0 +1,59 @@
+body {
+  
+   background-color:black;
+}
+
+h1, h2, h3, p{
+ 
+  color: white;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #a5a5a5;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #8cff00;
+}
+
+section img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+section img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.whale {
+  max-width: 350px;   /* adjust size as needed */
+  height: auto;
+  transform: none !important;
+  transition: none !important;
+}
+
+.whale.flipped {
+  transform: scaleX(-1) !important;
+}
+
+
+figure a {
+  color: #a5a5a5; 
+  text-decoration: none;
+  font-weight: 500; 
+  transition: color 0.3s;
+}
+
+figure a:hover {
+  color: #8cff00;
+}
+#button {
+    background-color: #8cff00;
+    color: black;
+    border-radius: 12px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+}
