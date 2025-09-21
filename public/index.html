@@ -78,40 +78,38 @@
 
   </style>
 </head>
+
 <body>
- <!-- Header -->
-<header class="p-3 text-bg-dark fixed-top">
-  <div class="container text-center">
-    <h1 class="display-4 mb-1">SamTusingDesign</h1>
-  </div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-      </a>
-
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/index.html" class="nav-link px-2 text-secondary">Home</a></li>
-        <li><a href="/featured.html" class="nav-link px-2 text-white">Features</a></li>
-        <li><a href="/projects.html" class="nav-link px-2 text-white">Projects</a></li>
-        <li><a href="/about.html" class="nav-link px-2 text-white">About</a></li>
-        <li><a href="/contact.html" class="nav-link px-2 text-white">Contact</a></li>
-      </ul>
-
-      <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-center">
-        <button id="button" type="button" class="btn btn-primary">Connect Wallet</button>
-      </div>
+  <!-- Header -->
+  <header class="p-3 text-bg-dark">
+    <div class="container text-center">
+      <h1 class="display-4 mb-1">SamTusingDesign</h1>
     </div>
-  </nav>
-</header>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <div class="container">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"></svg>
+        </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/index.html" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="/featured.html" class="nav-link px-2 text-white">Features</a></li>
+          <li><a href="/projects.html" class="nav-link px-2 text-white">Projects</a></li>
+          <li><a href="/about.html" class="nav-link px-2 text-white">About</a></li>
+          <li><a href="/contact.html" class="nav-link px-2 text-white">Contact</a></li>
+        </ul>
+        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-center">
+          <button id="button" type="button" class="btn btn-primary">Connect Wallet</button>
+        </div>
+      </div>
+    </nav>
+  </header>
 
+  <!-- Splash Grid Container -->
+<div class="container-fluid position-relative p-0">
 
-
-  <!-- Main: Splash Grid -->
-   <main>
-    <section>
-<main class="container-fluid p-0 position-relative">
-      <div class="splash-grid">
+  <!-- Splash Grid Section -->
+  <section class="container-fluid p-0 position-relative">
+    <div class="splash-grid">
 
       <div class="grid-item">
         <img src="/images/plague-doc.jpg" alt="Splash 1">
@@ -177,18 +175,19 @@
       
     </div>
 
-      <!-- Carousel Highlights -->
-  <div class="carousel-highlights position-absolute w-100 text-center" style="z-index: 15; top: 20px;">
-    <h2 class="text-black">Carousel Highlights</h2>
-  </div>
+      <!-- Carousel Overlay -->
+  <div class="position-absolute top-50 start-50 translate-middle" 
+       style="z-index: 10; width: 90%; max-width: 800px; height: 450px;">
 
+    <!-- Carousel Highlights -->
+    <div class="text-center mb-3">
+      <h2 class="text-black">Carousel Highlights</h2>
+    </div>
 
-  <!-- Carousel Overlay -->
-<div class="carousel-overlay position-absolute top-50 start-50 translate-middle" 
-     style="z-index:10; max-width:800px; width:90%;">
-  <div id="splashCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
+  <!-- Carousel -->
+   <div id="splashCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+      <div class="carousel-inner h-100">
+        <div class="carousel-item active h-100">
         <img src="/images/pie1.jpg" class="d-block w-100" style="object-fit: contain; max-height:400px;" alt="cherry">
       </div>
       <div class="carousel-item">
@@ -202,39 +201,19 @@
       </div>
     </div>
 
-    <!-- Carousel controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#splashCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#splashCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+    <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#splashCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#splashCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 </div>
 </section>
 
-<!-- Main content -->
-<main class="container">
-
-  <!-- About Me Area -->
-  <section id="about"  class="mt-55"> <!-- py-5 adds vertical padding -->
-    <div class="row align-items-center mb-5">
-      <div class="col-md-4 text-center">
-        <img src="/images/edison.jpg" alt="Artist Photo" class="img-fluid rounded-circle shadow-lg" />
-      </div>
-      <div class="col-md-8">
-        <h2>About the Artist</h2>
-        <p>Howdy! I'm Sam, a designer from Dallas. My goal is to become a full time UX Designer. Welcome to my circus, let me show you the monkeys.</p>
-        <p>Disclaimer: This is not me. My head is fully attached. I promise.</p>
-        <div class="social-links mt-3">
-          <a href="https://www.instagram.com/paintchipsbysam/" target="_blank" class="me-3">Instagram</a>
-          <a href="https://www.linkedin.com/in/samantha-tusing/" target="_blank" class="me-3">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
 </main>
@@ -254,11 +233,11 @@
   <div class="col-md-4 d-flex justify-content-end align-items-center">
     <!-- Nav links -->
     <ul class="nav me-3">
-      <li class="nav-item"><a href="#" class="nav-link px-2"style="color: black;">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2"style="color: black;">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2"style="color: black;">Projects</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2"style="color: black;">About</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2"style="color: black;">Contact</a></li>
+      <li class="nav-item"><a href="/index.html" class="nav-link px-2"style="color: black;">Home</a></li>
+      <li class="nav-item"><a href="/featured.html" class="nav-link px-2"style="color: black;">Features</a></li>
+      <li class="nav-item"><a href="/projects.html" class="nav-link px-2"style="color: black;">Projects</a></li>
+      <li class="nav-item"><a href="/about.html" class="nav-link px-2"style="color: black;">About</a></li>
+      <li class="nav-item"><a href="/contact.html" class="nav-link px-2"style="color: black;">Contact</a></li>
     </ul>
 
     <!-- Social icons -->
