@@ -15,6 +15,10 @@ body {
     font-weight: bold;
 }
 
+.spacer {
+  min-height: 75px;
+}
+
 
 html {
   box-sizing: border-box;
@@ -75,5 +79,10 @@ main {
 .carousel-control-next {
     width: 50px; 
     height: 50px;
+}
+
+footer {
+  position: relative;
+  z-index: 20;
 }
 
