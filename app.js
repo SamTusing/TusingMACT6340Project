@@ -2,7 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import { sendMessage } from "./utils/utils.js";
 dotenv.config();
+import * as db from "./utils/database.js";
 let data = ["Project 1", "Project 2", "Project 3"];
+let projects = [];
+
 
 const app = express();
 const port = 3000;
@@ -10,6 +13,19 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
 
+
+app.get("/", async (req, res, next) => {
+  await db
+    .connect()
+    .then(async () => {
+      // query the databse for project records
+      projects = await db.getAllProjects();
+      console.log(projects);
+      let featuredRand = Math.floor(Math.random() * projects.length);
+      res.render("index.ejs", { featuredProject: projects[featuredRand] });
+    })
+    .catch(next);
+});
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
