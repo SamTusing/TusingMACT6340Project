@@ -86,3 +86,8 @@ footer {
   z-index: 20;
 }
 
+.fadein {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}

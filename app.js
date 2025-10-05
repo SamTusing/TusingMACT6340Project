@@ -27,24 +27,26 @@ app.get("/", async (req, res, next) => {
     .catch(next);
 });
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+app.get("/projects", (req, res) => {
+  res.render("projects.ejs", { projectArray: projects });
 });
+
+app.get("/project/:id", (req, res) => {
+  let id = req.params.id;
+  if (id > data.length) {
+    throw new Error("No project with that ID");
+  }
+  res.render("project.ejs", { project: projects[id - 1], which: id });
+});
+
+// app.get("/", (req, res) => {
+//   res.render("index.ejs");
+// });
+
+
 
 app.get("/featured", (req, res) => {
   res.render("featured.ejs", { projectArray: data });
-});
-
-app.get("/projects", (req, res) => {
-  res.render("projects.ejs", { projectArray: data });
-});
-
-app.get("/projects/:id", (req, res) => {
- let id = req.params.id;
- if (id > data.length) {
-   throw new Error("No project with that ID");
- }
- res.render("projects.ejs", { projectArray: data, which: id });
 });
 
 app.get("/contact", (req, res) => {
@@ -78,5 +80,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Example app listening on port ${port}`);
 });
