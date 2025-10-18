@@ -57,3 +57,60 @@ figure a:hover {
     padding: 0.5rem 1.2rem;
     font-weight: bold;
 }
+
+.topic {
+  color: #8cff00;
+}
+
+.btn.btn.btn-primary {
+    background-color: #8cff00;
+    color: black;
+    border-radius: 12px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+}
+
+.flip-container {
+  perspective: 1000px;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px; /* size control */
+  height: auto;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* keeps it square */
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.flip-container:hover .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+.flip-front img,
+.flip-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* prevents stretching */
+  border-radius: 50%;
+}
+

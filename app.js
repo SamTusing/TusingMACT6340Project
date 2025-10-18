@@ -5,9 +5,11 @@ dotenv.config();
 import * as db from "./utils/database.js";
 let data = ["Project 1", "Project 2", "Project 3"];
 let projects = [];
+import cors from "cors";
 
 
 const app = express();
+app.use(cors());
 const port = 3000;
 app.set("view engine", "ejs");
 app.use(express.json());
@@ -36,6 +38,7 @@ app.get("/project/:id", (req, res) => {
   if (id > data.length) {
     throw new Error("No project with that ID");
   }
+  console.log(projects[id -1]);
   res.render("project.ejs", { project: projects[id - 1], which: id });
 });
 
