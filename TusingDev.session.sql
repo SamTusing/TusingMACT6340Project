@@ -1,1 +1,1 @@
-select * from projects;
+show tables;
