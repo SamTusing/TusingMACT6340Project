@@ -31,7 +31,7 @@
 
           <% projectArray.forEach((item, index) => {%>
           <div class="col-10">
-            <%- include('projectCard', {image: item.img_url, name: item.project_name, ident: item.id}); %>
+            <%- include('projectcard', {image: item.img_url, name: item.project_name, ident: item.id}); %>
           </div>
           <% }); %>
 
