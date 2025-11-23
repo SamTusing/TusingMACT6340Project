@@ -61,6 +61,37 @@ app.get("/about", (req, res) => {
 });
 
 
+app.get('/landscapes', (req, res) => {
+  res.render("landscapes.ejs");
+});
+
+app.get('/digital-art', (req, res) => {
+  res.render("digital-art.ejs");
+});
+
+app.get('/MACTProjects', (req, res) => {
+  res.render("MACTProjects.ejs");
+});
+
+app.get('/Texas-Hold-Em', (req, res) => {
+  res.render("Texas-Hold-Em.ejs");
+});
+
+app.get('/badges', (req, res) => {
+  res.render("badges.ejs");
+});
+
+app.get('/digital-art', (req, res) => {
+  res.render("digital-art.ejs");
+});
+
+app.get('/whales', (req, res) => {
+  res.render("whales.ejs");
+});
+
+
+
+
 app.post("/mail", async (req, res) => {
   try {
     await sendMessage(req.body.sub, req.body.txt);
