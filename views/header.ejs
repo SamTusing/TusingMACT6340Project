@@ -15,19 +15,37 @@
     }
   </style>
   
-  <nav class="navbar navbar-expand navbar-dark bg-dark mt-3">
-    <div class="container">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"></svg>
-      </a>
+<nav class="navbar navbar-expand navbar-dark bg-dark mt-3">
+  <div class="container">
+    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"></svg>
+    </a>
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-        <li><a href="/featured" class="nav-link px-2 text-white">Featured</a></li>
-        <li><a href="/projects" class="nav-link px-2 text-white">Projects</a></li>
-        <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
-        <li><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
-      </ul>
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+      <li><a href="/featured" class="nav-link px-2 text-white">Featured</a></li>
+
+      <!-- Projects Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white px-2" href="/projects" id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Projects
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
+          <li><a class="dropdown-item" href="/projects/landscapes">Landscapes</a></li>
+          <li><a class="dropdown-item" href="/projects/digital-art">Digital Art</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
+      <li><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
+    </ul>
+
+    <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-center">
+      <button id="wallet-connect" type="button" class="btn btn-outline-light">Connect Wallet</button>
+    </div>
+  </div>
+</nav>
+
 
       
       <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-center">
