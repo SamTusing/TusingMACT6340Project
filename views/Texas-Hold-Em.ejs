@@ -109,7 +109,7 @@
 
   galleryItems.forEach(item => {
     item.addEventListener('click', () => {
-      modalImage.src = item.dataset.full;
+      modalImage.src = item.src;
       modalCaption.textContent = item.dataset.caption;
       const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
       modal.show();
