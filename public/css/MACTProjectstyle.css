@@ -61,7 +61,7 @@
   color: #eee;
 }
 
-.modal {
+/* .modal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -78,4 +78,4 @@
   display: block;
   max-width: 90%;
   max-height: 90%;
-}
+} */
