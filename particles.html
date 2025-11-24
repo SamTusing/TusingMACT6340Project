@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: black;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let partCount = 300;
+      let tx = [], ty = [], spdX = [], spdY = [];
+      let damping = [], friction = [], r = [], strokeWt = [];
+      let fillCol = [], strokeCol = [];
+      let ptCount = [];
+
+      let col1, col2;
+      let gradientImg;
+
+      function setup() {
+        createCanvas(1500, 800);
+        col1 = color(34, 35, 44);   // dark gray
+        col2 = color(132, 135, 152); // light gray
+        createSkyGradient(col1, col2, width, height);
+        image(gradientImg, 0, 0);
+
+        for (let i = 0; i < partCount; i++) {
+          ptCount[i] = int(random(3, 14));
+          tx[i] = 0;
+          ty[i] = 0;
+          spdX[i] = random(-2.2, 2.2);
+          spdY[i] = random(-5);
+          damping[i] = random(0.4, 0.9);
+          friction[i] = random(0.4, 0.9);
+          r[i] = random(2, 9);
+          strokeWt[i] = random(0.5, 3);
+          fillCol[i] = color(114, 124, 188);
+          strokeCol[i] = color(81, 92, 160);
+        }
+      }
+
+      function draw() {
+        translate(width / 2, height / 2);
+
+        for (let i = 0; i < partCount; i++) {
+          push();
+          translate(tx[i], ty[i]);
+          strokeWeight(1);
+          stroke(0);
+          fill(255);
+          ellipse(0, 0, 20, 20);
+          pop();
+
+          tx[i] += spdX[i];
+          ty[i] += spdY[i];
+
+          if (tx[i] <= -width / 2 + 10 || tx[i] >= width / 2 - 10) {
+            spdX[i] *= -1;
+          }
+
+          if (ty[i] >= height / 2 - 10) {
+            spdY[i] *= -1;
+            spdY[i] *= damping[i];
+            spdX[i] *= friction[i];
+          }
+
+          if (ty[i] <= -height / 2 + 10) {
+            spdY[i] *= -1;
+          }
+        }
+      }
+
+      function createSkyGradient(c1, c2, w, h) {
+        gradientImg = createImage(w, h);
+        gradientImg.loadPixels();
+        for (let y = 0; y < h; y++) {
+          let inter = y / h;
+          let c = lerpColor(c1, c2, inter);
+          for (let x = 0; x < w; x++) {
+            let index = (x + y * w) * 4;
+            gradientImg.pixels[index] = red(c);
+            gradientImg.pixels[index + 1] = green(c);
+            gradientImg.pixels[index + 2] = blue(c);
+            gradientImg.pixels[index + 3] = 255;
+          }
+        }
+        gradientImg.updatePixels();
+      }
+    </script>
+  </body>
+</html>
