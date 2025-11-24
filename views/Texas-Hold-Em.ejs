@@ -91,6 +91,17 @@
   </div>
 </section>
 
+  <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-body p-0 text-center">
+        <img id="modalImage" src="" class="img-fluid rounded" alt="Full artwork">
+        <div id="modalCaption" class="text-black py-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   const galleryItems = document.querySelectorAll('.gallery-item');
   const modalImage = document.getElementById('modalImage');
