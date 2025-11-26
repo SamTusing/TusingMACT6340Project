@@ -78,7 +78,7 @@
     }
 
     function draw() {
-      background(0,0);
+       background(0,0);
 
       const sw = whale1.width * scale;
       const sh = whale1.height * scale;
@@ -203,16 +203,9 @@
   background-image: url('/images/circle-splash.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: contain;
-  pointer-events: none;
-  
-  /* FIXED: bring it above background but behind canvas */
+  background-size: contain;  /* Prevents stretching */
+  pointer-events: none;      /* Prevents blocking clicks */
   z-index: 0;
-}
-
-canvas {
-  position: relative;
-  z-index: 1;
 }
 
 </style>
