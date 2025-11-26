@@ -174,22 +174,25 @@
 
 <!-- Custom CSS -->
 <style>
-  .gallery-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
+ .gallery-container {
+  display: flex;
+  flex-wrap: wrap;        /* Allow wrapping on small screens */
+  gap: 20px;              /* Space between images */
+  justify-content: center; /* Center images horizontally */
+}
 
-  .gallery-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  }
+.gallery-item {
+  max-width: 300px;       /* Optional: Keep them a nice size */
+  flex: 1 1 auto;
+}
 
-  .gallery-item {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-  }
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;     /* Optional aesthetics */
+}
+  
 </style>
 
 <script>
