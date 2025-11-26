@@ -119,6 +119,96 @@
     }
   </script>
 
+  <!-- Gallery Item 1 -->
+<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+  <div class="gallery-card shadow-sm rounded overflow-hidden text-center">
+    <img 
+      src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg"
+      class="img-fluid gallery-item"
+      alt="Whales"
+      data-full="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg"
+      data-caption="Whales"
+    >
+    <div class="caption mt-2 text-black small">whales</div>
+  </div>
+</div>
+
+  <!-- Gallery Item 2 -->
+<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+  <div class="gallery-card shadow-sm rounded overflow-hidden text-center">
+    <img 
+      src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg"
+      class="img-fluid gallery-item"
+      alt="Whale"
+      data-full="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg"
+      data-caption="Whale"
+    >
+    <div class="caption mt-2 text-black small">whale</div>
+  </div>
+</div>
+
+  <!-- Gallery Item 3 -->
+<div class="col-6 col-sm-4 col-md-3 col-lg-2">
+  <div class="gallery-card shadow-sm rounded overflow-hidden text-center">
+    <img 
+      src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg"
+      class="img-fluid gallery-item"
+      alt="Whales with Oranges"
+      data-full="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg"
+      data-caption="Whale with Oranges"
+    >
+    <div class="caption mt-2 text-black small">whale and fruit</div>
+  </div>
+</div>
+
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-body p-0 text-center">
+        <img id="modalImage" src="" class="img-fluid rounded" alt="Full artwork">
+        <div id="modalCaption" class="text-black py-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+  .gallery-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .gallery-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  .gallery-item {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+</style>
+
+<script>
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const modalImage = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      modalImage.src = item.dataset.full;
+      modalCaption.textContent = item.dataset.caption;
+      const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+      modal.show();
+    });
+  });
+</script>
+
+
+
   <!-- Bootstrap Footer -->
   <footer class="container-fluid">
     <%- include('footer'); %>
