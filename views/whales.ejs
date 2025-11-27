@@ -18,12 +18,34 @@
   <style>
     body {
       margin: 0;
-      /* background-color: rgb(188, 174, 146); */
       background-color: black;
+      font-family: 'Orbitron', sans-serif;
     }
+
     canvas {
       display: block;
       margin: 0 auto;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .gallery-card img {
+      width: 250px;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
     }
   </style>
 </head>
@@ -33,7 +55,6 @@
     <%- include('header'); %>
   </header>
 
-  <div class="splash-bg"></div>
   <!-- Main content with p5 canvas -->
   <main>
     <div class="spacer"></div>
@@ -42,12 +63,12 @@
 
   <!-- p5 sketch -->
   <script>
-    let whale1, whale2, whale3;
+    let splash, whale1, whale2, whale3;
     const scale = 0.4;
     let bubbleSystems = [];
 
     function preload() {
-      splash = loadImage("/images/whale.png");
+      splash = loadImage("/images/circle-splash.png");
       whale1 = loadImage("/images/whale1.png");
       whale2 = loadImage("/images/whale2.png");
       whale3 = loadImage("/images/whale3.png");
@@ -72,19 +93,36 @@
         bubbleSystems.push(new BubbleSystem(emitterX, emitterY));
       });
 
+      // Adjust bubble origins
       bubbleSystems[1].origin.x += 40; bubbleSystems[1].origin.y += 130;
       bubbleSystems[2].origin.x -= 40; bubbleSystems[2].origin.y += 95;
       bubbleSystems[0].origin.x -= 50; bubbleSystems[0].origin.y += 90;
     }
 
     function draw() {
-       background(0,0);
+      background(0); // optional black fallback
 
-      const sw = whale1.width * scale;
-      const sh = whale1.height * scale;
+      // Draw splash with aspect ratio maintained
+      const splashAspect = splash.width / splash.height;
+      const canvasAspect = width / height;
+      let splashWidth, splashHeight, offsetX = 0, offsetY = 0;
+
+      if (canvasAspect > splashAspect) {
+        // Canvas is wider
+        splashHeight = height;
+        splashWidth = splashHeight * splashAspect;
+        offsetX = (width - splashWidth) / 2;
+      } else {
+        // Canvas is taller
+        splashWidth = width;
+        splashHeight = splashWidth / splashAspect;
+        offsetY = (height - splashHeight) / 2;
+      }
+      image(splash, offsetX, offsetY, splashWidth, splashHeight);
 
       // Draw whales
-      // image(splash, 0, 0, width, height);
+      const sw = whale1.width * scale;
+      const sh = whale1.height * scale;
       image(whale1, 50, 175, sw, sh);
       image(whale2, 400, 290, sw, sh);
       image(whale3, 800, 175, sw, sh);
@@ -121,120 +159,28 @@
     }
   </script>
 
+  <!-- Gallery -->
   <div class="container my-5">
-  <div class="gallery-container">
-
-
-    <!-- Gallery Item 1 -->
-    <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg" 
-       target="_blank" 
-       class="gallery-card">
-      <img 
-        src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg" 
-        alt="Whales">
-    </a>
-
-    <!-- Gallery Item 2 -->
-    <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg" 
-       target="_blank" 
-       class="gallery-card">
-      <img 
-        src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg" 
-        alt="Whale">
-    </a>
-
-    <!-- Gallery Item 3 -->
-    <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg" 
-       target="_blank" 
-       class="gallery-card">
-      <img 
-        src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg" 
-        alt="Whale and Fruit">
-    </a>
-
-
-  </div>
-</div>
-
-
-<!-- <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content bg-dark">
-      <div class="modal-body p-0 text-center">
-        <img id="modalImage" src="" class="img-fluid rounded" alt="Full artwork">
-        <div id="modalCaption" class="text-black py-2"></div>
-      </div>
+    <div class="gallery-container">
+      <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg" target="_blank" class="gallery-card">
+        <img src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalegrid.jpg" alt="Whales">
+      </a>
+      <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg" target="_blank" class="gallery-card">
+        <img src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whalehorizontal.jpg" alt="Whale">
+      </a>
+      <a href="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg" target="_blank" class="gallery-card">
+        <img src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/whaleoranges.jpg" alt="Whale and Fruit">
+      </a>
     </div>
   </div>
-</div> -->
-
-<!-- Custom CSS -->
-
-
-<style>
-.gallery-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.gallery-card img {
-  width: 250px;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.gallery-card:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-
-.splash-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/images/circle-splash.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;  /* Prevents stretching */
-  pointer-events: none;      /* Prevents blocking clicks */
-  z-index: 0;
-}
-
-</style>
-
-<!-- <script>
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  const modalImage = document.getElementById('modalImage');
-  const modalCaption = document.getElementById('modalCaption');
-
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      modalImage.src = item.dataset.full;
-      modalCaption.textContent = item.dataset.caption;
-      const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
-      modal.show();
-    });
-  });
-</script> -->
-
-
 
   <!-- Bootstrap Footer -->
   <footer class="container-fluid">
     <%- include('footer'); %>
   </footer>
 
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-  crossorigin="anonymous"></script>
-
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+</body>
 </html>
