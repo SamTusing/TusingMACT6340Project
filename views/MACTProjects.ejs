@@ -90,9 +90,39 @@
       <img src="https://tusing-nft-mint-cdn.sfo3.cdn.digitaloceanspaces.com/images/screenshot3.jpg" alt="MACT Example" onclick="openModal(this.src)">
       <div class="gallery-caption">Random Generation version 2</div>
     </div>
+ <div class="spacer"></div> -->
+  </div>
+
+  <!-- ⭐ MINIATURE P5 PROJECT PREVIEWS SECTION -->
+<section id="p5-previews" class="container my-5">
+  <h2 class="text-center text-white mb-4">Previous p5 Projects</h2>
+
+  <div class="p5-preview-grid">
+
+    <!-- Preview 1 -->
+    <div class="p5-preview-item">
+      <div id="miniSketch1"></div>
+      <p class="text-center text-white small mt-2">Snow!</p>
+    </div>
+
+    <!-- Preview 2
+    <div class="p5-preview-item">
+      <div id="previewSketch2"></div>
+      <p class="text-center text-white small mt-2">Bubbles Preview</p>
+    </div>
+
+    <!-- Preview 3 -->
+    <!-- <div class="p5-preview-item">
+      <div id="previewSketch3"></div>
+      <p class="text-center text-white small mt-2">Particle Preview</p>
+    </div> --> -->
 
   </div>
+</section>
+
 </main>
+
+
 
 
 <!-- ⭐ IMAGE ENLARGE MODAL -->
@@ -185,6 +215,134 @@
   };
 
   new p5(sketch);
+</script>
+
+<script>
+(function() {
+  const miniSketch = (p) => {
+
+    const partCount = 300;
+
+    let ptCount = Array(partCount).fill(0);
+
+    let tx = Array(partCount).fill(0);
+    let ty = Array(partCount).fill(0);
+
+    let spdX = Array(partCount).fill(0);
+    let spdY = Array(partCount).fill(0);
+
+    let damping = Array(partCount).fill(0);
+    let friction = Array(partCount).fill(0);
+
+    let r = Array(partCount).fill(0);
+    let strokeWt = Array(partCount).fill(0);
+
+    let fillCol = Array(partCount).fill(0);
+    let strokeCol = Array(partCount).fill(0);
+
+    // ⚠️ NEW: canvas scale factor
+    // Your original size = 800, new = 250 → scale = 0.3125
+    const S = 250 / 800;
+
+    let gradientImg;
+
+    // ---- Gradient Background Conversion ----
+    function makeGradient(col1, col2, w, h) {
+      let g = p.createImage(w, h);
+      g.loadPixels();
+
+      let r1 = p.red(col1), r2 = p.red(col2);
+      let g1 = p.green(col1), g2 = p.green(col2);
+      let b1 = p.blue(col1), b2 = p.blue(col2);
+
+      for (let i = 0; i < w * h; i++) {
+        let pct = i / (w * h);
+        g.pixels[i * 4 + 0] = r1 + pct * (r2 - r1);
+        g.pixels[i * 4 + 1] = g1 + pct * (g2 - g1);
+        g.pixels[i * 4 + 2] = b1 + pct * (b2 - b1);
+        g.pixels[i * 4 + 3] = 255;
+      }
+
+      g.updatePixels();
+      return g;
+    }
+
+    p.setup = () => {
+      let canvas = p.createCanvas(250, 250);
+      canvas.parent("miniSketch1");
+
+      // Dark gray → light gray
+      let col1 = p.color(34, 35, 44);
+      let col2 = p.color(132, 135, 152);
+
+      // Smaller gradient
+      gradientImg = makeGradient(col1, col2, p.width, p.height);
+
+      for (let i = 0; i < partCount; i++) {
+        ptCount[i] = p.int(p.random(3, 14));
+
+        tx[i] = 0;
+        ty[i] = 0;
+
+        spdX[i] = p.random(-2.2, 2.2) * S;
+        spdY[i] = p.random(-5) * S;
+
+        damping[i] = p.random(0.4, 0.9);
+        friction[i] = p.random(0.4, 0.9);
+
+        r[i] = p.random(2, 9) * S;
+        strokeWt[i] = p.random(0.5, 3) * S;
+
+        fillCol[i] = p.color(114, 124, 188);
+        strokeCol[i] = p.color(81, 92, 160);
+      }
+
+      p.noStroke();
+    };
+
+    p.draw = () => {
+      p.image(gradientImg, 0, 0);
+
+      p.push();
+      p.translate(p.width / 2, p.height / 2);
+
+      for (let i = 0; i < partCount; i++) {
+
+        p.push();
+        p.translate(tx[i], ty[i]);
+        tx[i] += spdX[i];
+        ty[i] += spdY[i];
+
+        p.fill(fillCol[i]);
+        p.stroke(strokeCol[i]);
+        p.strokeWeight(strokeWt[i]);
+
+        p.ellipse(0, 0, 20 * S, 20 * S);
+
+        // Walls (scaled)
+        if (tx[i] <= p.width / 2 * -1 + 110 * S || tx[i] >= p.width / 2 - 110 * S) {
+          spdX[i] *= -1;
+        }
+
+        if (ty[i] >= p.height / 2 - 130 * S) {
+          spdY[i] *= -1;
+          spdY[i] *= damping[i];
+          spdX[i] *= friction[i];
+        }
+
+        if (ty[i] <= -p.height / 2 + 130 * S) {
+          spdY[i] *= -1;
+        }
+
+        p.pop();
+      }
+
+      p.pop();
+    };
+  };
+
+  new p5(miniSketch);
+})();
 </script>
 
 
