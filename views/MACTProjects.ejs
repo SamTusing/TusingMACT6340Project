@@ -105,9 +105,9 @@
       <p class="text-center text-white small mt-2">Snow!</p>
     </div>
 
-    <!-- Preview 2
+    <!-- Preview 2 -->
     <div class="p5-preview-item">
-      <div id="previewSketch2"></div>
+      <div id="miniSketch2"></div>
       <p class="text-center text-white small mt-2">Bubbles Preview</p>
     </div>
 
@@ -217,7 +217,7 @@
   new p5(sketch);
 </script>
 
-<!-- ⭐ MINIATURE P5 PROJECT PREVIEW SCRIPT -->
+<!-- ⭐ MINIATURE P5 PROJECT PREVIEW SCRIPT 1 -->
 <script>
 const previewSketch1 = (p) => {
   let partCount = 300;
@@ -318,6 +318,109 @@ const previewSketch1 = (p) => {
 };
 
 new p5(previewSketch1);
+
+// <!-- ⭐ MINIATURE P5 PROJECT PREVIEW SCRIPT 2 -->
+</script>
+
+<script>
+const previewSketch2 = (p) => {
+  const width = 350;
+  const height = 350;
+  let leader, leadSpd, follower, followerSpd;
+  const springing = 0.01;
+  const springDamping = 0.9;
+
+  p.setup = () => {
+    let canvas = p.createCanvas(width, height);
+    canvas.parent("miniSketch2");
+    p.background(0);
+    leader = { x: width / 2, y: height / 2 };
+    leadSpd = { x: p.random(-1.5, 1.5), y: p.random(-1.5, 1.5) };
+    follower = { x: leader.x, y: leader.y };
+    followerSpd = { x: 0, y: 0 };
+    p.strokeWeight(1);
+  };
+
+  function drawHexagon(x, y, radius, sides = 6) {
+    const angle = p.TWO_PI / sides;
+    p.beginShape();
+    for (let i = 0; i <= sides; i++) {
+      const px = x + radius * p.cos(i * angle);
+      const py = y + radius * p.sin(i * angle);
+      p.vertex(px, py);
+    }
+    p.endShape(p.CLOSE);
+  }
+
+  function drawHexGrid() {
+    p.push();
+    p.translate(width / 2, height / 2);
+    p.rotate(p.radians(75));
+
+    p.stroke("red");
+    p.noFill();
+
+    // center cluster
+    p.fill("black");
+    drawHexagon(0, 0, 100);
+    p.fill("white");
+    drawHexagon(0, 0, 50);
+    p.fill("red");
+    p.stroke("black");
+    drawHexagon(0, 0, 25);
+
+    // outer rings example (simplified for preview)
+    p.stroke("red");
+    p.noFill();
+    [100, 200, -100, -200].forEach((x) => drawHexagon(x, 0, 50));
+
+    p.pop();
+  }
+
+  p.draw = () => {
+    p.background(0);
+
+    // Leader random motion
+    leadSpd.x += p.random(-1, 1);
+    leadSpd.y += p.random(-1, 1);
+    leader.x += leadSpd.x;
+    leader.y += leadSpd.y;
+
+    if (leader.x > width || leader.x < 0) leadSpd.x *= -1;
+    if (leader.y > height || leader.y < 0) leadSpd.y *= -1;
+
+    // Spring motion
+    let dx = leader.x - follower.x;
+    let dy = leader.y - follower.y;
+    dx *= springing;
+    dy *= springing;
+    followerSpd.x += dx;
+    followerSpd.y += dy;
+    follower.x += followerSpd.x;
+    follower.y += followerSpd.y;
+    followerSpd.x *= springDamping;
+    followerSpd.y *= springDamping;
+
+    // Draw spring line
+    p.stroke(255, 128);
+    p.line(leader.x, leader.y, follower.x, follower.y);
+
+    // Leader dot
+    p.fill("red");
+    p.noStroke();
+    p.ellipse(leader.x, leader.y, 5);
+
+    // Follower hex
+    p.stroke(255);
+    p.fill(255);
+    drawHexagon(follower.x, follower.y, 15);
+
+    // Static hex grid
+    drawHexGrid();
+  };
+};
+
+new p5(previewSketch2);
 </script>
 
 
