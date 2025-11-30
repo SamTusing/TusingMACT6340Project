@@ -217,133 +217,109 @@
   new p5(sketch);
 </script>
 
+<!-- ⭐ MINIATURE P5 PROJECT PREVIEW SCRIPT -->
 <script>
-(function() {
-  const miniSketch = (p) => {
+const previewSketch1 = (p) => {
+  let partCount = 300;
+  let tx = [], ty = [], spdX = [], spdY = [];
+  let damping = [], friction = [], r = [], strokeWt = [];
+  let fillCol = [], strokeCol = [];
+  let ptCount = [];
 
-    const partCount = 300;
+  let col1, col2;
+  let gradientImg;
 
-    let ptCount = Array(partCount).fill(0);
+  p.setup = () => {
+    let canvas = p.createCanvas(350, 350);
+    canvas.parent("miniSketch1"); // Match your div ID
 
-    let tx = Array(partCount).fill(0);
-    let ty = Array(partCount).fill(0);
+    col1 = p.color(34, 35, 44);        // dark gray  
+    col2 = p.color(132, 135, 152);     // light gray  
+    createSkyGradient(col1, col2, p.width, p.height);
+    p.image(gradientImg, 0, 0);
 
-    let spdX = Array(partCount).fill(0);
-    let spdY = Array(partCount).fill(0);
+    for (let i = 0; i < partCount; i++) {
+      ptCount[i] = p.int(p.random(3, 14));
+      tx[i] = 0;
+      ty[i] = 0;
 
-    let damping = Array(partCount).fill(0);
-    let friction = Array(partCount).fill(0);
+      spdX[i] = p.random(-2.2, 2.2);
+      spdY[i] = p.random(-5);
 
-    let r = Array(partCount).fill(0);
-    let strokeWt = Array(partCount).fill(0);
+      damping[i] = p.random(0.4, 0.9);
+      friction[i] = p.random(0.4, 0.9);
 
-    let fillCol = Array(partCount).fill(0);
-    let strokeCol = Array(partCount).fill(0);
+      r[i] = p.random(2, 9);
+      strokeWt[i] = p.random(0.5, 3);
 
-    // ⚠️ NEW: canvas scale factor
-    // Your original size = 800, new = 250 → scale = 0.3125
-    const S = 250 / 800;
-
-    let gradientImg;
-
-    // ---- Gradient Background Conversion ----
-    function makeGradient(col1, col2, w, h) {
-      let g = p.createImage(w, h);
-      g.loadPixels();
-
-      let r1 = p.red(col1), r2 = p.red(col2);
-      let g1 = p.green(col1), g2 = p.green(col2);
-      let b1 = p.blue(col1), b2 = p.blue(col2);
-
-      for (let i = 0; i < w * h; i++) {
-        let pct = i / (w * h);
-        g.pixels[i * 4 + 0] = r1 + pct * (r2 - r1);
-        g.pixels[i * 4 + 1] = g1 + pct * (g2 - g1);
-        g.pixels[i * 4 + 2] = b1 + pct * (b2 - b1);
-        g.pixels[i * 4 + 3] = 255;
-      }
-
-      g.updatePixels();
-      return g;
+      fillCol[i] = p.color(114, 124, 188);
+      strokeCol[i] = p.color(81, 92, 160);
     }
-
-    p.setup = () => {
-      let canvas = p.createCanvas(250, 250);
-      canvas.parent("miniSketch1");
-
-      // Dark gray → light gray
-      let col1 = p.color(34, 35, 44);
-      let col2 = p.color(132, 135, 152);
-
-      // Smaller gradient
-      gradientImg = makeGradient(col1, col2, p.width, p.height);
-
-      for (let i = 0; i < partCount; i++) {
-        ptCount[i] = p.int(p.random(3, 14));
-
-        tx[i] = 0;
-        ty[i] = 0;
-
-        spdX[i] = p.random(-2.2, 2.2) * S;
-        spdY[i] = p.random(-5) * S;
-
-        damping[i] = p.random(0.4, 0.9);
-        friction[i] = p.random(0.4, 0.9);
-
-        r[i] = p.random(2, 9) * S;
-        strokeWt[i] = p.random(0.5, 3) * S;
-
-        fillCol[i] = p.color(114, 124, 188);
-        strokeCol[i] = p.color(81, 92, 160);
-      }
-
-      p.noStroke();
-    };
-
-    p.draw = () => {
-      p.image(gradientImg, 0, 0);
-
-      p.push();
-      p.translate(p.width / 2, p.height / 2);
-
-      for (let i = 0; i < partCount; i++) {
-
-        p.push();
-        p.translate(tx[i], ty[i]);
-        tx[i] += spdX[i];
-        ty[i] += spdY[i];
-
-        p.fill(fillCol[i]);
-        p.stroke(strokeCol[i]);
-        p.strokeWeight(strokeWt[i]);
-
-        p.ellipse(0, 0, 20 * S, 20 * S);
-
-        // Walls (scaled)
-        if (tx[i] <= p.width / 2 * -1 + 110 * S || tx[i] >= p.width / 2 - 110 * S) {
-          spdX[i] *= -1;
-        }
-
-        if (ty[i] >= p.height / 2 - 130 * S) {
-          spdY[i] *= -1;
-          spdY[i] *= damping[i];
-          spdX[i] *= friction[i];
-        }
-
-        if (ty[i] <= -p.height / 2 + 130 * S) {
-          spdY[i] *= -1;
-        }
-
-        p.pop();
-      }
-
-      p.pop();
-    };
   };
 
-  new p5(miniSketch);
-})();
+  p.draw = () => {
+    p.push();
+    p.translate(p.width / 2, p.height / 2);
+
+    for (let i = 0; i < partCount; i++) {
+      p.push();
+      p.translate(tx[i], ty[i]);
+
+      p.strokeWeight(1);
+      p.stroke(0);
+      p.fill(255);
+
+      p.ellipse(0, 0, 12, 12);
+      p.pop();
+
+      tx[i] += spdX[i];
+      ty[i] += spdY[i];
+
+      // Bounce left/right
+      if (tx[i] <= -p.width / 2 + 10 || tx[i] >= p.width / 2 - 10) {
+        spdX[i] *= -1;
+      }
+
+      // Bounce bottom
+      if (ty[i] >= p.height / 2 - 10) {
+        spdY[i] *= -1;
+        spdY[i] *= damping[i];
+        spdX[i] *= friction[i];
+      }
+
+      // Bounce top
+      if (ty[i] <= -p.height / 2 + 10) {
+        spdY[i] *= -1;
+      }
+    }
+
+    p.pop();
+  };
+
+  function createSkyGradient(c1, c2, w, h) {
+    gradientImg = p.createImage(w, h);
+    gradientImg.loadPixels();
+
+    for (let y = 0; y < h; y++) {
+      let inter = y / h;
+      let c = p.lerpColor(c1, c2, inter);
+
+      for (let x = 0; x < w; x++) {
+        let index = (x + y * w) * 4;
+        gradientImg.pixels[index] = p.red(c);
+        gradientImg.pixels[index + 1] = p.green(c);
+        gradientImg.pixels[index + 2] = p.blue(c);
+        gradientImg.pixels[index + 3] = 255;
+      }
+    }
+
+    gradientImg.updatePixels();
+  }
+};
+
+new p5(previewSketch1);
 </script>
+
 
 
 <!-- ⭐ MODAL SCRIPT -->
