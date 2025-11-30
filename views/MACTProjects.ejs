@@ -95,7 +95,7 @@
 
   <!-- ⭐ MINIATURE P5 PROJECT PREVIEWS SECTION -->
 <section id="p5-previews" class="container my-5">
-  <h2 class="text-center text-white mb-4">Previous p5 Projects</h2>
+  <h2 class="text-center text-white mb-4">p5 Projects</h2>
 
   <div class="p5-preview-grid">
 
@@ -108,14 +108,14 @@
     <!-- Preview 2 -->
     <div class="p5-preview-item">
       <div id="miniSketch2"></div>
-      <p class="text-center text-white small mt-2">Bubbles Preview</p>
+      <p class="text-center text-white small mt-2">Hexagons!</p>
     </div>
 
     <!-- Preview 3 -->
-    <!-- <div class="p5-preview-item">
-      <div id="previewSketch3"></div>
-      <p class="text-center text-white small mt-2">Particle Preview</p>
-    </div> --> -->
+    <div class="p5-preview-item">
+      <div id="miniSketch3"></div>
+      <p class="text-center text-white small mt-2">Hexagons PLUS Verlet!</p>
+    </div>
 
   </div>
 </section>
@@ -423,6 +423,101 @@ const previewSketch2 = (p) => {
 new p5(previewSketch2);
 </script>
 
+// <!-- ⭐ MINIATURE P5 PROJECT PREVIEW SCRIPT 3 -->
+
+<script>
+const previewSketch3 = (p) => {
+  let leader, leadSpd;
+  let follower, followerSpd;
+  const springing = 0.01;
+  const springDamping = 0.9;
+
+  p.setup = () => {
+    let canvas = p.createCanvas(350, 350);
+    canvas.parent("miniSketch3");
+    p.background(0);
+    p.strokeWeight(0.75);
+    p.smooth();
+
+    leader = p.createVector(0, 0);
+    leadSpd = p.createVector(p.random(-1.5, 1.5), p.random(-1.5, 1.5));
+    follower = p.createVector(0, 0);
+    followerSpd = p.createVector(0, 0);
+
+    // Draw initial hex pattern once for background
+    p.push();
+    p.translate(p.width / 2, p.height / 2);
+    let polyCount = 10; // reduce for preview
+    for (let i = 0; i < polyCount; i++) {
+      p.noFill();
+      hexagon(p, 0, 0, p.random(20, 80), 6);
+      p.rotate(p.radians(p.random(1, 180)));
+      hexagon(p, 0, 0, p.random(20, 80), 6);
+    }
+    p.pop();
+  };
+
+  p.draw = () => {
+    p.push();
+    p.translate(p.width / 2, p.height / 2);
+
+    // Leader motion
+    leadSpd.add(p.createVector(p.random(-2, 0.1), p.random(-0.2, 0.1)));
+    leader.add(leadSpd);
+
+    // Spring follower motion
+    let deltaX = leader.x - follower.x;
+    let deltaY = leader.y - follower.y;
+    deltaX *= springing;
+    deltaY *= springing;
+    followerSpd.x += deltaX;
+    followerSpd.y += deltaY;
+    follower.add(followerSpd);
+    followerSpd.mult(springDamping);
+
+    // Draw spring line
+    p.stroke(255, 0, 0);
+    p.line(leader.x, leader.y, follower.x, follower.y);
+
+    // Draw leader
+    p.push();
+    p.rotate(p.radians(45));
+    p.fill(255, 0, 0);
+    p.noStroke();
+    p.ellipse(leader.x, leader.y, 5, 5);
+    p.pop();
+
+    // Draw follower hex
+    p.stroke(255);
+    p.fill(0);
+    hexagon(p, follower.x, follower.y, 15, 6);
+
+    // Constrain leader within bounds
+    constrainBounds(p, leader, leadSpd, 175); // half of canvas size
+
+    p.pop();
+  };
+
+  function hexagon(p, x, y, r, points) {
+    let theta = 0;
+    p.beginShape();
+    for (let i = 0; i < points; i++) {
+      p.vertex(x + r * p.cos(theta), y + r * p.sin(theta));
+      theta += p.TWO_PI / points;
+    }
+    p.endShape(p.CLOSE);
+  }
+
+  function constrainBounds(p, obj, spd, limit) {
+    if (obj.x > limit) { obj.x = limit; spd.x *= -1; }
+    if (obj.x < -limit) { obj.x = -limit; spd.x *= -1; }
+    if (obj.y > limit) { obj.y = limit; spd.y *= -1; }
+    if (obj.y < -limit) { obj.y = -limit; spd.y *= -1; }
+  }
+};
+
+new p5(previewSketch3);
+</script>
 
 
 <!-- ⭐ MODAL SCRIPT -->
