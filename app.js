@@ -60,6 +60,10 @@ app.get("/about", (req, res) => {
   res.render("about.ejs");
 });
 
+app.get("/miscellaneous", (req, res) => {
+  res.render("miscellaneous.ejs");
+});
+
 
 app.get('/landscapes', (req, res) => {
   res.render("landscapes.ejs");
